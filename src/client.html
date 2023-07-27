@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<script src="/socket.io/socket.io.js"></script>
+<script>
+function startTime() {
+    document.getElementById('clock').innerHTML = new Date();
+    setTimeout(startTime, 500);
+}
+if (window.WebSocket) {
+ console.log("HTML5 WebSocket is supported");
+} else {
+  alert("HTML5 WebSocket is not supported");
+}
+var myWebSocket = io();
+myWebSocket.onopen = function() { 
+	console.log('WebSocket opened'); 
+}
+myWebSocket.on("message",function(msg) {
+    console.log('Received from server: '+ msg);
+    document.getElementById("receivedmessage").innerHTML += sanitizeHTML(msg) + "<br>";
+});
+myWebSocket.on("typing",function(msg) {
+    //console.log('Received from server: '+ msg);
+    document.getElementById("typing").innerHTML= "Someone is typing......<br>";
+    setTimeout(function(){document.getElementById("typing").innerHTML="<br>";},500);
+});
+myWebSocket.onclose = function() { 
+	console.log('WebSocket closed');
+}
+
+function doSend(msg){
+    if (myWebSocket) {
+        myWebSocket.emit("message",msg);
+        console.log('Sent to server: ' +msg);
+    }
+}
+var sanitizeHTML = function(str){
+  var temp=document.createElement('div');
+  temp.textContent=str;
+  return temp.innerHTML;
+};
+function entertoSend(e){
+  //alert("keycode =" + e.keyCode);
+  if(e.keyCode==13){//enter key
+    doSend(document.getElementById("message").value);
+    document.getElementById("message").value = "";
+  }
+}
+</script>
+
+<body onload="startTime()">
+Current time: <div id="clock"></div>
+
+Type message and enter to send: <input type = "text" id="message" size = "30" onkeypress="entertoSend(event)" onkeyup="myWebSocket.emit('typing')" />
+<br>
+<div id="typing"></div>
+Message from server:
+<hr>
+<div id = "receivedmessage"></div>
+
+
+</body>
+</html>
