@@ -4,15 +4,7 @@
 
 ## Member details :
 
-### Names - Pankaj Anil Vanjani, Tejas Avinash Patil
-
-### UD ID# - 1016797601, 101686047
-
-Email : <vanjanip1@udayton.edu>,<patilt3@udayton.edu>
-
-This is a private repository for Pankaj Anil Vanjani and Tejas Avinash Patil to store code for this Project.
-
-#Bitbucket Link : <https://bitbucket.org/secad-s22-team16/secad-s22-team16-project>
+### Name - Pankaj Anil Vanjani
 
 #Video Link : <https://drive.google.com/file/d/1VVa8ujWPczoWV_5tDKzJr7u5YEwBfU-9/view?usp=sharing>
 
